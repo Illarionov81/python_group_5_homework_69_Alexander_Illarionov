@@ -61,6 +61,7 @@ def subtract(request, *args, **kwargs):
         answer['answer'] = sum
         return JsonResponse(answer)
 
+
 # @ensure_csrf_cookie
 def multiply(request, *args, **kwargs):
     answer = {}
