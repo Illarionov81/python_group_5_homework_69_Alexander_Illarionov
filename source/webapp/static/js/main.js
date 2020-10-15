@@ -41,17 +41,22 @@ async function makeRequest(url, method='GET', data=undefined) {
     }
 }
 
-async function onLike(event) {
-    event.preventDefault();
+window.addEventListener('load', function() {
+    // const add = document.getElementById('add');
+    // const subtract = document.getElementById('subtract');
+    // const divide = document.getElementById('divide');
+    // const multiply = document.getElementById('multiply');
+    //
+    // add.onclick = onLike;
+    // subtract.onclick = onLike;
+    // divide.onclick = onLike;
+    // multiply.onclick = onLike;
+
+});
+async function Click(url) {
     const A = document.getElementById('a').value;
     const B = document.getElementById('b').value;
-    console.log(A, B);
     const text = document.getElementById('output');
-    let action = event.target;
-    console.log(action)
-    let url = action.href;
-    console.log(url);
-
     try {
         let response = await makeRequest(url, 'POST', {"A": A, "B": B});
         text.innerText =  response['answer'];
@@ -66,15 +71,12 @@ async function onLike(event) {
     }
 }
 
-window.addEventListener('load', function() {
-    const add = document.getElementById('add');
-    const subtract = document.getElementById('subtract');
-    const divide = document.getElementById('divide');
-    const multiply = document.getElementById('multiply');
+ function onClick(event) {
+    event.preventDefault();
+    let aId = event.target.dataset['a'];
+    let a = document.getElementById(aId);
+    let url = a.href;
+    console.log(url);
+    Click(url);
 
-    add.onclick = onLike;
-    subtract.onclick = onLike;
-    divide.onclick = onLike;
-    multiply.onclick = onLike;
-
-});
+}

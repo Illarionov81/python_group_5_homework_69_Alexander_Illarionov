@@ -31,17 +31,21 @@
                 Число В: <br>
                 <input type="number" id="b" name="B">
             </div>
-            <div class="box">
-                <a href="{% url 'api_v1:add' %}" id="add" class="sp">Плюс </a>
+            <div class="box" >
+                <button onclick='onClick(event);' data-a="add">Плюс</button>
+                <a href="{% url 'api_v1:add' %}" id="add" class="sp"></a>
+            </div>
+            <div class="box" >
+                <button onclick='onClick(event);' data-a="subtract">Минус</button>
+                <a href="{% url 'api_v1:subtract' %}" id="subtract" class="sp"></a>
+            </div>
+            <div class="box" >
+                <button onclick='onClick(event);' data-a="divide">Разделить</button>
+                <a href="{% url 'api_v1:divide' %}" id="divide" class="sp"></a>
             </div>
             <div class="box">
-                <a href="{% url 'api_v1:subtract' %}" id="subtract" class="sp">Минус </a>
-            </div>
-            <div class="box">
-                <a href="{% url 'api_v1:divide' %}" id="divide" class="sp">Разделить</a>
-            </div>
-            <div class="box">
-                <a href="{% url 'api_v1:multiply' %}" id="multiply" class="sp">Умножить</a>
+                <button onclick='onClick(event);' data-a="multiply">Умножить</button>
+                <a href="{% url 'api_v1:multiply' %}" id="multiply" class="sp"></a>
             </div>
             <div class="box">
                 <label for="output"><b>Результат:</b></label><br>
@@ -50,9 +54,6 @@
         </form>
         {% block content %}{% endblock %}
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
     <script src="{% static "js/main.js" %}"></script>
     {% block scripts %}{% endblock %}
 </body>
