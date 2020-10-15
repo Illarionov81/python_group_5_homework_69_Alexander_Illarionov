@@ -23,21 +23,23 @@ def add(request, *args, **kwargs):
             if is_int(value):
                 pass
             else:
-                return HttpResponseBadRequest('Введенный параметр не является числом!')
+                answer["error"] = 'Введенный параметр не является числом!'
+                response = JsonResponse(answer)
+                response.status_code = 400
+                return response
         a = int(data['A'])
         b = int(data['B'])
         try:
             sum = a + b
         except Exception:
             answer["error"] = "Ошибка во время расчетов!"
-            answer_as_json = json.dumps(answer)
-            response = HttpResponseBadRequest(answer_as_json)
-            response['Content-Type'] = 'application/json'
+            response = JsonResponse(answer)
+            response.status_code = 400
             return response
         answer['answer'] = sum
         return JsonResponse(answer)
 
-#@ensure_csrf_cookie
+# @ensure_csrf_cookie
 def subtract(request, *args, **kwargs):
     answer = {}
     if request.method == 'POST':
@@ -46,7 +48,10 @@ def subtract(request, *args, **kwargs):
             if is_int(value):
                 pass
             else:
-                return HttpResponseBadRequest('Введенный параметр не является числом!')
+                answer["error"] = 'Введенный параметр не является числом!'
+                response = JsonResponse(answer)
+                response.status_code = 400
+                return response
         a = int(data['A'])
         b = int(data['B'])
         print(b)
@@ -54,9 +59,8 @@ def subtract(request, *args, **kwargs):
             sum = a - b
         except Exception:
             answer["error"] = "Ошибка во время расчетов!"
-            answer_as_json = json.dumps(answer)
-            response = HttpResponseBadRequest(answer_as_json)
-            response['Content-Type'] = 'application/json'
+            response = JsonResponse(answer)
+            response.status_code = 400
             return response
         answer['answer'] = sum
         return JsonResponse(answer)
@@ -71,16 +75,18 @@ def multiply(request, *args, **kwargs):
             if is_int(value):
                 pass
             else:
-                return HttpResponseBadRequest('Введенный параметр не является числом!')
+                answer["error"] = 'Введенный параметр не является числом!'
+                response = JsonResponse(answer)
+                response.status_code = 400
+                return response
         a = int(data['A'])
         b = int(data['B'])
         try:
             sum = a * b
         except Exception:
             answer["error"] = "Ошибка во время расчетов!"
-            answer_as_json = json.dumps(answer)
-            response = HttpResponseBadRequest(answer_as_json)
-            response['Content-Type'] = 'application/json'
+            response = JsonResponse(answer)
+            response.status_code = 400
             return response
         answer['answer'] = sum
         return JsonResponse(answer)
@@ -88,22 +94,27 @@ def multiply(request, *args, **kwargs):
 # @ensure_csrf_cookie
 def divide(request, *args, **kwargs):
     answer = {}
+    print(request.headers)
     if request.method == 'POST':
         data = json.loads(request.body)
         for key, value in data.items():
             if is_int(value):
                 pass
             else:
-                return HttpResponseBadRequest('Введенный параметр не является числом!')
+                answer["error"] = 'Введенный параметр не является числом!'
+                response = JsonResponse(answer)
+                response.status_code = 400
+                return response
+                # return HttpResponseBadRequest('Введенный параметр не является числом!')
         a = int(data['A'])
         b = int(data['B'])
         try:
             sum = a / b
+            print(a,b)
         except ZeroDivisionError:
             answer["error"] = "Ошибка во время расчетов! Division by zero!"
-            answer_as_json = json.dumps(answer)
-            response = HttpResponseBadRequest(answer_as_json)
-            response['Content-Type'] = 'application/json'
+            response = JsonResponse(answer)
+            response.status_code = 400
             return response
         answer['answer'] = sum
         return JsonResponse(answer)

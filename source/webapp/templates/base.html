@@ -21,16 +21,18 @@
         </div>
     </nav>
     <div class="container">
+        <form action="">
+{% csrf_token %}
             <div class="box">
                 Число А: <br>
-                <input type="number" id="a" value="A">
+                <input type="number" id="a" name="A">
             </div>
             <div class="box">
                 Число В: <br>
-                <input type="number" id="b" value="B">
+                <input type="number" id="b" name="B">
             </div>
             <div class="box">
-               <a href="{% url 'api_v1:add' %}" id="add" class="sp">Плюс </a>
+                <a href="{% url 'api_v1:add' %}" id="add" class="sp">Плюс </a>
             </div>
             <div class="box">
                 <a href="{% url 'api_v1:subtract' %}" id="subtract" class="sp">Минус </a>
@@ -42,9 +44,10 @@
                 <a href="{% url 'api_v1:multiply' %}" id="multiply" class="sp">Умножить</a>
             </div>
             <div class="box">
-                <label for="output">Результат:</label><br>
-                <textarea name="text" id="output"></textarea>
+                <label for="output"><b>Результат:</b></label><br>
+                <textarea name="text" rows="3" id="output"></textarea>
             </div>
+        </form>
         {% block content %}{% endblock %}
     </div>
 

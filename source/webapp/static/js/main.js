@@ -33,7 +33,8 @@ async function makeRequest(url, method='GET', data=undefined) {
     let response = await fetch(url, opts);
     if (response.ok) {  // нормальный ответ
         return response.json();
-    } else {            // ошибка
+    }
+    else {            // ошибка
         let error = new Error(response.statusText);
         error.response = response;
         throw error;
@@ -41,11 +42,11 @@ async function makeRequest(url, method='GET', data=undefined) {
 }
 
 async function onLike(event) {
+    event.preventDefault();
     const A = document.getElementById('a').value;
     const B = document.getElementById('b').value;
     console.log(A, B);
     const text = document.getElementById('output');
-    event.preventDefault();
     let action = event.target;
     console.log(action)
     let url = action.href;
@@ -53,11 +54,15 @@ async function onLike(event) {
 
     try {
         let response = await makeRequest(url, 'POST', {"A": A, "B": B});
-        console.log(response);
         text.innerText =  response['answer'];
+        text.style.background = 'green';
     }
     catch (error) {
-        console.log(error);
+        error = await error.response;
+        error= error.json();
+        error = await error;
+        text.innerText =  error['error'];
+        text.style.background = 'red';
     }
 }
 
